@@ -1,12 +1,12 @@
 # better_asp_webapp
 an owo webapp i made but better!
-</br?>
+</br>
 DB structure for MSSQL
-</br?>
+</br>
 name of DB = "ASPuserDB"
-</br?>
+</br>
 refer to connectionstrings in web.config file
-</br?>
+</br>
 ```
 CREATE TABLE [dbo].[userdetailsTable] (
     [u_id]    INT           IDENTITY (1, 1) NOT NULL,
