@@ -65,7 +65,8 @@ namespace userdetailwebsite
             while (r.Read())
             {
                 nameTB.Text = r.GetValue(1).ToString();
-                dobTB.Text = phoneTB.Text = (Convert.ToDateTime(r[2]).ToString("yyyy-MM-dd"));
+                //dobTB.Text = phoneTB.Text = (Convert.ToDateTime(r[2]).ToString("yyyy-MM-dd"));
+                dobTB.Text = phoneTB.Text = (Convert.ToDateTime(r.GetValue(2)).ToString("yyyy-MM-dd"));
                 phoneTB.Text = r.GetValue(3).ToString();
 
             }
@@ -110,7 +111,7 @@ namespace userdetailwebsite
             ScriptManager.RegisterStartupScript(this, this.GetType(),"script", "alert('User  updated sucessfully'); window.location = './about.aspx';", true);
             //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated')", true);
             Session.Abandon(); // so that update button disappears
-            //Response.Redirect("/about.aspx");
+            //Response.Redirect("/about.aspx"); //using this makes alert script no worky owo :{
 
         }
 
