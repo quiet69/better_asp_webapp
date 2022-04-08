@@ -104,13 +104,13 @@ namespace userdetailwebsite
             comm.ExecuteNonQuery();
             con.Close();
             resetFields();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated')", true);
             btnUpdate.Visible = false;
             btncancel.Visible = false;
             btnSubmit.Visible = true;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated')", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(),"script", "alert('User  updated sucessfully'); window.location = './about.aspx';", true);
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated')", true);
             Session.Abandon(); // so that update button disappears
-            Response.Redirect("/about.aspx");
+            //Response.Redirect("/about.aspx");
 
         }
 
