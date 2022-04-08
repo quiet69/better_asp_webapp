@@ -67,6 +67,7 @@ namespace userdetailwebsite
                 nameTB.Text = r.GetValue(1).ToString();
                 dobTB.Text = phoneTB.Text = (Convert.ToDateTime(r[2]).ToString("yyyy-MM-dd"));
                 phoneTB.Text = r.GetValue(3).ToString();
+
             }
             con.Close();
             calcAge();
@@ -107,6 +108,7 @@ namespace userdetailwebsite
             btnUpdate.Visible = false;
             btncancel.Visible = false;
             btnSubmit.Visible = true;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated')", true);
             Session.Abandon(); // so that update button disappears
             Response.Redirect("/about.aspx");
 
@@ -140,6 +142,7 @@ namespace userdetailwebsite
             {
 
             }
+    
         }
 
         protected void btncancel_Click(object sender, EventArgs e)
