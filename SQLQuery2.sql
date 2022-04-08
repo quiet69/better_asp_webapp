@@ -1,5 +1,5 @@
 insert into userdetailsTable (u_name, u_DOB, u_phone)
-values ('quiet', GETDATE(), '6281439450')
+values ('quiet', GETDATE(), '9999999999')
 
 select * from userdetailsTable
 
