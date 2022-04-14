@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
 using System.Configuration;
-
-
+using System.Data.SqlClient;
+using System.Web.UI;
 
 namespace userdetailwebsite
 {
@@ -28,7 +21,6 @@ namespace userdetailwebsite
                     int loadid;
                     if (updateID != "")
                     {
-
                         try
                         {
                             loadid = Convert.ToInt32(updateID);
@@ -41,10 +33,9 @@ namespace userdetailwebsite
                     }
                 }
             }
-
         }
 
-        void resetFields()
+        private void resetFields()
         {
             nameTB.Text = "";
             dobTB.Text = "";
@@ -52,10 +43,9 @@ namespace userdetailwebsite
             phoneTB.Text = "";
         }
 
+        private SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["dbCon"].ConnectionString);
 
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["dbCon"].ConnectionString);
-
-        void getDataByID(int loadid)
+        private void getDataByID(int loadid)
         {
             con.Open();
             //SqlCommand comm = new SqlCommand("Select * from userdetailsTable where u_id = '" +loadid+ "'", con);
@@ -68,11 +58,11 @@ namespace userdetailwebsite
                 //dobTB.Text = phoneTB.Text = (Convert.ToDateTime(r[2]).ToString("yyyy-MM-dd"));
                 dobTB.Text = phoneTB.Text = (Convert.ToDateTime(r.GetValue(2)).ToString("yyyy-MM-dd"));
                 phoneTB.Text = r.GetValue(3).ToString();
-
             }
             con.Close();
             calcAge();
         }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             con.Open();
@@ -84,7 +74,7 @@ namespace userdetailwebsite
             comm.ExecuteNonQuery();
             con.Close();
             resetFields();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully inserted')", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully inserted, oomfie!!!!!')", true);
         }
 
         protected void btnReset_Click(object sender, EventArgs e)
@@ -108,20 +98,18 @@ namespace userdetailwebsite
             btnUpdate.Visible = false;
             btncancel.Visible = false;
             btnSubmit.Visible = true;
-            ScriptManager.RegisterStartupScript(this, this.GetType(),"script", "alert('User  updated sucessfully'); window.location = './about.aspx';", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('User updated sucessfully, oomfie! congratssss'); window.location = './about.aspx';", true);
             //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated')", true);
             Session.Abandon(); // so that update button disappears
             //Response.Redirect("/about.aspx"); //using this makes alert script no worky owo :{
-
         }
 
         protected void dobTB_TextChanged(object sender, EventArgs e)
         {
             calcAge();
-    
         }
 
-        void calcAge()
+        private void calcAge()
         {
             try
             {
@@ -141,9 +129,7 @@ namespace userdetailwebsite
             }
             catch
             {
-
             }
-    
         }
 
         protected void btncancel_Click(object sender, EventArgs e)

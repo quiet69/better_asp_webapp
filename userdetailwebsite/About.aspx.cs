@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace userdetailwebsite
 {
@@ -14,18 +11,19 @@ namespace userdetailwebsite
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 LoadRecord();
             }
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["dbCon"].ConnectionString);
+
+        private SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["dbCon"].ConnectionString);
+
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
-        void LoadRecord()
+        private void LoadRecord()
         {
             //SqlCommand comm = new SqlCommand("Select * from userdetailsTable", con);
             SqlCommand comm = new SqlCommand("exec SelectAllUsers", con);
@@ -34,7 +32,6 @@ namespace userdetailwebsite
             d.Fill(dt);
             GridView1.DataSource = dt;
             GridView1.DataBind();
-
         }
 
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
@@ -61,11 +58,11 @@ namespace userdetailwebsite
             con.Close();
             if (t > 0)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated!')", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('successfully updated, oomfie!!!')", true);
+                System.Diagnostics.Debug.WriteLine("owo updated??????");
                 GridView1.EditIndex = -1;
                 LoadRecord();
             }
-            
         }
 
         protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -78,17 +75,15 @@ namespace userdetailwebsite
         {
             int id = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
 
-
             con.Open();
             //SqlCommand comm = new SqlCommand("delete from userdetailsTable where u_id = @id", con);
-            SqlCommand comm = new SqlCommand("exec DeleteUser @id",con);
+            SqlCommand comm = new SqlCommand("exec DeleteUser @id", con);
             comm.Parameters.AddWithValue("@id", id);
             int t = comm.ExecuteNonQuery();
             con.Close();
             if (t > 0)
             {
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('deleted updated!')", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('deleted successfully, oomfie!!!')", true);
                 GridView1.EditIndex = -1;
                 LoadRecord();
             }
@@ -103,10 +98,10 @@ namespace userdetailwebsite
         protected void ChkHeader_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkheader = (CheckBox)GridView1.HeaderRow.FindControl("ChkHeader");
-            foreach(GridViewRow row in GridView1.Rows)
+            foreach (GridViewRow row in GridView1.Rows)
             {
                 CheckBox chkrow = (CheckBox)row.FindControl("chkEmpty");
-                if(chkheader.Checked==true)
+                if (chkheader.Checked == true)
                 {
                     chkrow.Checked = true;
                 }
@@ -119,7 +114,7 @@ namespace userdetailwebsite
 
         protected void delbtn_Click(object sender, EventArgs e)
         {
-            for(int i = 0; i<GridView1.Rows.Count; i++)
+            for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 CheckBox chkdelete = (CheckBox)GridView1.Rows[i].Cells[0].FindControl("chkEmpty");
                 if (chkdelete.Checked)
@@ -133,11 +128,9 @@ namespace userdetailwebsite
                     con.Close();
                     if (t > 0)
                     {
-
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('deleted updated!')", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('deleted successfully, oomfie!!!')", true);
                         GridView1.EditIndex = -1;
                     }
-
                 }
             }
             LoadRecord();
@@ -161,7 +154,7 @@ namespace userdetailwebsite
                     chkcount++;
                     if (chkcount > 1)
                     {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('Please select one item to update!')", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('oomfie error owo!!!!!')", true);
                         break;
                     }
                 }
